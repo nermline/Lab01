@@ -1,3 +1,4 @@
+#pragma once
 #include <vector>
 #include <iostream>
 #include <random>
@@ -15,4 +16,5 @@ class Board {
         void operator()();
 
         void print();
+        const std::vector<int> get_squares() const { return squares; }
 };
