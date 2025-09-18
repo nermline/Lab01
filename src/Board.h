@@ -1,7 +1,18 @@
+#include <vector>
+#include <iostream>
+#include <random>
+
 class Board {
     private:
-        int side_size = 1;
-        int size = side_size * side_size;
-        int squares[size];
+        const int n;
+        const int squares_amount;
+        std::vector<int> squares;
+        std::mt19937 gen;
+        std::uniform_int_distribution<int> dist;
+
     public:
+        Board(int n);
+        void operator()();
+
+        void print();
 };
