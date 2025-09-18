@@ -1,5 +1,6 @@
 #include "experiment.h"
 #include <iostream>
+#include <algorithm>
 
 using namespace std;
 
@@ -34,7 +35,7 @@ double median_multiplicity(Board& board) {
 		return sorted_squares[total_board_size / 2];
 	}
 	else {
-		return (sorted_squares[(total_board_size / 2) - 1 + (total_board_size / 2)]) / 2;
+		return (sorted_squares[total_board_size / 2 - 1] + sorted_squares[total_board_size / 2]) / 2.0;
 	}
 
 }
