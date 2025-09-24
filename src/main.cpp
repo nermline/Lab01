@@ -3,7 +3,7 @@
 #include <iostream>
 #include <vector>
 #include "Board.h"
-#include "experiment.h"
+#include "multiplicity.h"
 
 using namespace std;
 
@@ -15,12 +15,25 @@ int enter_value() {
     return value;
 }
 
+void select_squares(int m, Board board) {
+    for(int i = 0; i < m; i++) {
+        board();
+    }
+}
+
 int main() {
     cout << "Enter board side size: ";
     int n = enter_value();
     Board board(n);
     cout << "Squares to choose amount: ";
     int m = enter_value();
-    experiment(n, m, board);
+    select_squares(m, board);
+
+    double average = average_multiplicity(board);
+    cout << "Average: " << average << endl << endl;
+
+    double median = median_multiplicity(board);
+    cout << "Median: " << median << endl;
+
     return 0;
 }

@@ -8,12 +8,3 @@ Board::Board(int n) : squares_amount(n*n), squares(squares_amount, 0),
 void Board::operator()() {
     squares[dist(gen)]++;
 }
-
-void Board::print() {
-    for (int row = 0; row < n; row++) {
-        for (int col = 0; col < n; col++) {
-            cout << squares[row * n + col] << " ";
-        }
-    cout << endl;
-    }
-}

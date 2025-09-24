@@ -1,1 +1,0 @@
-void experiment(int n, int m, Board board);
