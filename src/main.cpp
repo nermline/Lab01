@@ -37,7 +37,7 @@ int main() {
         if (cin.fail() || unswer != 1) {
             return 0;
         } else {
-            save_to_csv(board, "output.csv");
+            save_to_csv(board, "../visualize/output.csv");
 
             cout << "Enter amount of repetitions: ";
             int repetitions = enter_value();
