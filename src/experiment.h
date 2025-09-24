@@ -1,5 +1,1 @@
-#pragma once
-#include "Board.h"
-
-double average_multiplicity(Board& board);
-double median_multiplicity(Board& board);
+void experiment(int n, int m, Board board);
