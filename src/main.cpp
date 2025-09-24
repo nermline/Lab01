@@ -4,6 +4,7 @@
 #include <vector>
 #include "Board.h"
 #include "multiplicity.h"
+#include "experiment.h"
 
 using namespace std;
 
@@ -15,25 +16,37 @@ int enter_value() {
     return value;
 }
 
-void select_squares(int m, Board board) {
-    for(int i = 0; i < m; i++) {
-        board();
-    }
-}
-
 int main() {
-    cout << "Enter board side size: ";
-    int n = enter_value();
-    Board board(n);
-    cout << "Squares to choose amount: ";
-    int m = enter_value();
-    select_squares(m, board);
+    try {
+        cout << "Enter board side size: ";
+        int n = enter_value();
+        Board board(n);
+        cout << "Squares to choose amount: ";
+        int m = enter_value();
+        select_squares(m, board);
+        
+        double average = average_multiplicity(board);
+        cout << "Average: " << average << endl;
+        
+        double median = median_multiplicity(board);
+        cout << "Median: " << median << endl;
+        
+        cout << "Try program experiment? (1 - yes, 0 - no): ";
+        int unswer;
+        cin >> unswer;
+        if (cin.fail() || unswer != 1) {
+            return 0;
+        } else {
+            save_to_csv(board, "output.csv");
 
-    double average = average_multiplicity(board);
-    cout << "Average: " << average << endl << endl;
+            cout << "Enter amount of repetitions: ";
+            int repetitions = enter_value();
+            experiment(n, m, repetitions);   
+        }
 
-    double median = median_multiplicity(board);
-    cout << "Median: " << median << endl;
-
-    return 0;
+        return 0;
+    } catch (const exception& e) {
+        cout << e.what() << endl;
+        return 1;
+    }
 }
