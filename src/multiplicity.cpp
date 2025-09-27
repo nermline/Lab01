@@ -1,13 +1,14 @@
+#pragma once
 #include "multiplicity.h"
 #include <iostream>
 #include <algorithm>
 
 using namespace std;
 
-double average_multiplicity(Board& board) {
-	const auto squares_p = board.get_squares();
+double average_multiplicity(Board &board) {
+	const vector<int> squares_p = board.get_squares();
+	const int total_board_size = squares_p.size();
 	double sum_of_multiplicities = 0.0;
-	int total_board_size = squares_p.size();
 
 	for (int i = 0; i < total_board_size; i++) {
 		sum_of_multiplicities += squares_p[i];
@@ -17,10 +18,8 @@ double average_multiplicity(Board& board) {
 }
 
 double median_multiplicity(Board& board) {
-	const auto squares_p = board.get_squares();
-	int total_board_size = squares_p.size();
 	vector<int> sorted_squares = board.get_squares();
-
+	const int total_board_size = sorted_squares.size();
 	sort(sorted_squares.begin(), sorted_squares.end());
 
 	if (total_board_size % 2 == 1) {
