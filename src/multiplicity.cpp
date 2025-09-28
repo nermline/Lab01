@@ -1,4 +1,3 @@
-#pragma once
 #include "multiplicity.h"
 #include <iostream>
 #include <algorithm>
