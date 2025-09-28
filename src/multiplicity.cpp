@@ -5,7 +5,7 @@
 
 using namespace std;
 
-double average_multiplicity(Board &board) {
+double average_multiplicity(const Board &board) {
 	const vector<int> squares_p = board.get_squares();
 	const int total_board_size = squares_p.size();
 	double sum_of_multiplicities = 0.0;
@@ -17,16 +17,16 @@ double average_multiplicity(Board &board) {
 	return sum_of_multiplicities / total_board_size;
 }
 
-double median_multiplicity(Board& board) {
-	vector<int> sorted_squares = board.get_squares();
-	const int total_board_size = sorted_squares.size();
-	sort(sorted_squares.begin(), sorted_squares.end());
+double median_multiplicity(const Board& board) {
+	vector<int> squares_to_sort = board.get_squares();
+	const int total_board_size = squares_to_sort.size();
+	sort(squares_to_sort.begin(), squares_to_sort.end());
 
 	if (total_board_size % 2 == 1) {
-		return sorted_squares[total_board_size / 2];
+		return squares_to_sort[total_board_size / 2];
 	}
 	else {
-		return (sorted_squares[total_board_size / 2 - 1] + sorted_squares[total_board_size / 2]) / 2.0;
+		return (squares_to_sort[total_board_size / 2 - 1] + squares_to_sort[total_board_size / 2]) / 2.0;
 	}
 
 }

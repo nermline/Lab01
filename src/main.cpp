@@ -7,7 +7,7 @@
 #include "experiment.h"
 using namespace std;
 
-void check_value(int &value) {
+void check_value(const int &value) {
     if (cin.fail()) throw invalid_argument("Invalid argument: Wrong Input!");
     if (value <= 0) throw invalid_argument("Value must be greater than zero!");
 }
@@ -27,14 +27,14 @@ Board data_input(int& n, int& m) {
     return board;
 }
 
-void multiplicities_output(double &avg_multiplicity, double &med_multiplicity) {
+void multiplicities_output(const double &avg_multiplicity, const double &med_multiplicity) {
     cout << endl;
     cout << "Done!" << endl;
     cout << "Average: " << avg_multiplicity << endl;
     cout << "Median: " << med_multiplicity << endl;
 }
 
-void start_experiment(Board& board, int& n, int& m) {
+void start_experiment(const Board& board, const int& n, const int& m) {
     save_to_csv(board, "output.csv");
     cout << "Enter amount of repetitions: ";
     int repetitions = enter_value();

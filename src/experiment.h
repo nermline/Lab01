@@ -2,8 +2,6 @@
 #include "Board.h"
 #include <string>
 
-using namespace std;
-
-void experiment(int& n, int& m, int& repetitions);
-void select_squares(int& m, Board& board);
-void save_to_csv(Board& board, const string& filename);
+void experiment(const int& n, const int& m, const int& repetitions);
+void select_squares(const int& m, Board& board);
+void save_to_csv(const Board& board, const std::string& filename);
