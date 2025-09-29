@@ -11,6 +11,7 @@ void check_value(const int& value) {
     if (cin.fail()) throw invalid_argument("Invalid argument: Wrong Input!");
     if (value <= 0) throw invalid_argument("Value must be greater than zero!");
 }
+
 int enter_value() {
     int value;
     cin >> value;

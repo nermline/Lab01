@@ -12,3 +12,4 @@ Board::Board(int n) :
 void Board::operator()() {
     squares[dist(gen)]++;
 }
+
