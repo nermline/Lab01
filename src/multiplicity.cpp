@@ -6,12 +6,12 @@
 using namespace std;
 
 double average_multiplicity(const Board &board) {
-	const vector<int> squares_p = board.get_squares();
-	const int total_board_size = squares_p.size();
+	const vector<int> squares = board.get_squares();
+	const int total_board_size = squares.size();
 	double sum_of_multiplicities = 0.0;
 
 	for (int i = 0; i < total_board_size; i++) {
-		sum_of_multiplicities += squares_p[i];
+		sum_of_multiplicities += squares[i];
 	}
 
 	return sum_of_multiplicities / total_board_size;

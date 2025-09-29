@@ -5,49 +5,62 @@
 #include "multiplicity.h"
 
 using namespace std;
-
-void save_to_csv(const Board& board, const string& filename) {
-    auto squares = board.get_squares();
-    ofstream out(filename);
-    if (!out) {
-        throw runtime_error("Cannot open file " + filename);
-    }
-
-    for (int i = 0; i < (int)squares.size(); i++) {
-        out << i << "," << squares[i] << "\n";
-    }
-}
-
 void select_squares(const int& m, Board& board) {
     for (int i = 0; i < m; i++) {
         board();
     }
 }
 
-void exp_results_output(const int& n,const int& m, const int& repetitions, const long double& avg_sum, const long double& med_sum) {
-    cout << endl;
-    cout << "Average over " << repetitions << " runs: " << avg_sum / repetitions << endl;
-    cout << "Median over " << repetitions << " runs: " << med_sum / repetitions << endl;
-    cout << "m/n^2: " << (double)m / n / n << endl;
+void check_ofstream_is_open(const ofstream& ofstream, const string& filename) {
+    if (!ofstream) {
+        throw runtime_error("Cannot open file " + filename);
+    }
+}
+void save_to_csv_random(const Board& board, const string& filename) {
+    vector<int> squares = board.get_squares();
+    ofstream out(filename);
+    check_ofstream_is_open(out, filename);
+
+    for (int i = 0; i < squares.size(); i++) {
+        out << i << "," << squares[i] << endl;
+    }
 }
 
-void experiment(const int& n, const int& m, const int& repetitions) {
-    cout << "---- Start program experiment! ----" << endl;
+void save_to_csv_dependence(const int n, const vector<int>& ms, const int& repetitions, const string& filename) {
+    ofstream out(filename);
+    check_ofstream_is_open(out, filename);
 
-    long double avg_sum = 0.0;
-    long double med_sum = 0.0;
+    out << "m_ratio,avg_multiplicity,med_multiplicity" << endl;
 
-    for (int i = 1; i <= repetitions; i++) {
-        Board board(n);
-        select_squares(m, board);
+    for (auto m : ms) {
+        long double avg_sum = 0.0;
+        long double med_sum = 0.0;
 
-        double avg = average_multiplicity(board);
-        double med = median_multiplicity(board);
+        for (int i = 0; i < repetitions; i++) {
+            Board board(n);
+            select_squares(m, board);
 
-        avg_sum += avg;
-        med_sum += med;
+            avg_sum += average_multiplicity(board);
+            med_sum += median_multiplicity(board);
+        }
 
-        cout << "Run #" << i << ": average=" << avg << ", median=" << med << endl;
+        double avg = avg_sum / repetitions;
+        double med = med_sum / repetitions;
+        double ratio = (double)m / n / n;
+
+        out << ratio << "," << avg << "," << med << endl;
+        cout << m << "," << ratio << "," << avg << "," << med << endl;
     }
-    exp_results_output(n, m, repetitions, avg_sum, med_sum);
+}
+
+void experiment(Board& board, const int n, const int m, const int& repetitions) {
+    cout << "---- Start program experiment! ----" << endl;
+    select_squares(m, board);
+    save_to_csv_random(board, "output_random.csv");
+    cout << "Results of random saved in 'random_check.csv'" << endl;
+
+    vector<int> ms = { m / 5, m / 4, m / 3, m / 2, m, m * 2, m * 3, m * 4, m * 5};
+    save_to_csv_dependence(n, ms, repetitions, "output_dependence.csv");
+    cout << "Multiplicities dependence to m/n^2 saved to 'output_dependence.csv'" << endl;
+
 }
